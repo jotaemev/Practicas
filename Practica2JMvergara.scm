@@ -49,3 +49,10 @@
 (display
  (list-number? '(1 2 1 4 5 6 1)))
 (newline)
+
+(define (show data)
+  (display data)
+  (newline))
+
+(show (tuple-number? '(9 8 7)))
+
