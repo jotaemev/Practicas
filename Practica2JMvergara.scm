@@ -5,15 +5,15 @@
  (+tuple '(1 2) '(5 4)))
  (newline)
 
-(define (sum l)
-  (let recur ((list l))
-    (if (null? list)
-        0
-        (+ (car list) (recur (cdr list))))))
+;; (define (sum l)
+;;   (let recur ((list l))
+;;     (if (null? list)
+;;         0
+;;         (+ (car list) (recur (cdr list))))))
 
-(display
- (sum '(1 2 3 4 5 6 7)))
- (newline)
+;; (display
+;;  (sum '(1 2 3 4 5 6 7)))
+;;  (newline)
     
 (define (length l n)
   (let recur ((list l)
@@ -54,5 +54,33 @@
   (display data)
   (newline))
 
-(show (tuple-number? '(9 8 7)))
+(define (sum l)
+  (if (list-number? l)
+      (let recur ((list l))
+        (if (null? list)
+            0
+            (+ (car list) (recur (cdr list)))))
+      (error "Not a number list")))
+     
+(show (sum '(1 2 3 4 6 6)))
+
+(define (filter list funcion)
+  (let recur ((l list))
+    (cond
+     ((null? l) '())
+     ((funcion (car l)) (cons (car l) (recur (cdr l))))
+     (else
+      (recur (cdr l))))))
+
+(show (filter '(a 7 () d 6 5 f) symbol?))
+
+(define (remove list funcion)
+  (let recur ((l list))
+    (cond
+     ((null? l) '())
+     ((funcion (car l)) (recur (cdr l)))
+     (else
+      (cons (car l) (recur (cdr l)))))))
+
+(show (remove '(a 7 () d 6 5 f) number?))
 
