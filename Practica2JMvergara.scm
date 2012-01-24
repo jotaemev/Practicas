@@ -84,3 +84,52 @@
 
 (show (remove '(a 7 () d 6 5 f) number?))
 
+(define (remove2 l f)
+  (filter l (lambda (x) (not (f x)))))
+
+(show (remove2 '(a 7 () d 6 5 f) number?))
+
+
+(define (atom? e)
+  (and (not (pair? e))
+       (not (null? e))))
+
+(define (map* f l)
+  (let recur ((list l))
+    (cond
+     ((null? list) '())
+     ((atom? (car list))
+      (cons (f (car list)) (recur (cdr list))))
+      (else
+       (cons (recur (car list))
+             (recur (cdr list)))))))
+
+(show (map* (lambda (x) (* x x)) '(0 1 2 3 4 5)))
+
+(define (insert-right* l e1 e2)
+  (let recur ((list l))
+    (cond
+     ((null? list) '())
+     ((atom? (car list))
+      (if (eq? (car list) e1)
+          (cons (car list) (cons e2 (recur (cdr list))))
+          (cons (car list) (recur (cdr list)))))
+     (else
+      (cons (recur (car list))
+            (recur (cdr list)))))))
+
+(show (insert-right* '((a b) c d a (a)) 'a 'x))
+
+(define (insert-left* l e1 e2)
+  (let recur ((list l))
+    (cond
+     ((null? list) '())
+     ((atom? (car list))
+      (if (eq? (car list) e1)
+          (cons e2 (cons (car list) (recur (cdr list))))
+          (cons (car list) (recur (cdr list)))))
+     (else
+      (cons (recur (car list))
+            (recur (cdr list)))))))
+
+(show (insert-left* '((a b) c d a (a)) 'a 'x))
