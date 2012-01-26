@@ -133,8 +133,3 @@
             (recur (cdr list)))))))
 
 (show (insert-left* '((a b) c d a (a)) 'a 'x))
-
-(define (filter2 l f)
-  (remove l (lambda (x) (not (f x)))))
-
-(show (filter2 '(a 7 () d 6 5 f) number?))
